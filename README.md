@@ -172,9 +172,13 @@ Training consists of a multi-step procedure.
 3. Extract hard negatives using nearest neighbor search with [optional hard negative filtering](#filtering-negatives).  
 4. Train with in-batch negatives and hard negatives.
 
-An example script is in [scripts/run_sample.py](scripts/run_sample.py). To run with the small sample data in the repo: 
+An example script is in [scripts/run_sample.py](scripts/run_sample.py). To run with the small sample data in the repo on a GPU: 
 ```bash
 python scripts/run_sample.py
+```
+To run with the small sample data in the repo on a CPU: 
+```bash
+python scripts/run_sample_cpu.py
 ```
 
 ### Train on a new dataset

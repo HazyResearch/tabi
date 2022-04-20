@@ -100,9 +100,6 @@ def load_model(model_checkpoint, model, device, optimizer=None, lr_scheduler=Non
     state_dict = checkpoint["state_dict"]
     consume_prefix_in_state_dict_if_present(state_dict, "module.")
     model.load_state_dict(state_dict, strict=True)
-    # missing_keys, unexpected_keys = model.load_state_dict(state_dict, strict=False)
-    # assert len(unexpected_keys) == 0 or (len(unexpected_keys) == 1 and unexpected_keys[0] == 'entity_embs')
-    # assert len(missing_keys) == 0
 
     if optimizer is not None:
         optimizer.load_state_dict(checkpoint["optimizer"])
@@ -116,7 +113,8 @@ def load_model(model_checkpoint, model, device, optimizer=None, lr_scheduler=Non
     # TODO: support reloading numpy state if any new randomness depends on numpy random
     if "rng_cpu" in checkpoint:
         torch.set_rng_state(checkpoint["rng_cpu"].cpu())
-        torch.cuda.set_rng_state(checkpoint["rng_gpu"].cpu())
+        if device != "cpu":
+            torch.cuda.set_rng_state(checkpoint["rng_gpu"].cpu())
         logger.debug("Loaded random states.")
 
     return {
