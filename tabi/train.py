@@ -268,7 +268,9 @@ def main(args):
                     if lr_scheduler is not None
                     else None,
                     "rng_cpu": torch.get_rng_state(),
-                    "rng_gpu": torch.cuda.get_rng_state(),
+                    "rng_gpu": torch.cuda.get_rng_state()
+                    if args.device != "cpu"
+                    else None,
                 },
                 ckpt_path,
             )
@@ -289,7 +291,9 @@ def main(args):
                     if lr_scheduler is not None
                     else None,
                     "rng_cpu": torch.get_rng_state(),
-                    "rng_gpu": torch.cuda.get_rng_state(),
+                    "rng_gpu": torch.cuda.get_rng_state()
+                    if args.device != "cpu"
+                    else None,
                 },
                 ckpt_path,
             )
@@ -312,7 +316,7 @@ def main(args):
                 if lr_scheduler is not None
                 else None,
                 "rng_cpu": torch.get_rng_state(),
-                "rng_gpu": torch.cuda.get_rng_state(),
+                "rng_gpu": torch.cuda.get_rng_state() if args.device != "cpu" else None,
             },
             last_ckpt_path,
         )
