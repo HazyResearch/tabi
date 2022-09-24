@@ -78,7 +78,7 @@ Both formats can be used for `entity_file` in the following commands, but the pi
 
 ## Use TABi interactively 
 
-We support two modes to use TABi interactively. We recommend using the models trained on KILT for the interactive mode since it does not currently support mention detection or providing mention boundaries. 
+We support two modes to use TABi interactively. ***We recommend using the models trained on KILT for the interactive mode.*** The interactive mode does not currently support mention detection or providing mention boundaries. 
 
 ### Standard retrieval mode
 
@@ -156,7 +156,7 @@ To evaluate a TABi model, run:
 python tabi/eval.py --test_data_file nq-dev-kilt.jsonl --entity_file entity.pkl --model_checkpoint best_model.pth --entity_emb_path embs.npy --mode eval --log_dir logs
 ```
 - `log_dir` specifies where the log file and prediction file are written. 
-- You can also specify the name for the prediction file with `--predfile`. For instance: 
+- You can also specify the name for the prediction file with `--pred_file`. For instance: 
 ```bash
 python tabi/eval.py --test_data_file nq-dev-kilt.jsonl --entity_file entity.pkl --model_checkpoint best_model.pth --entity_emb_path embs.npy --mode eval --log_dir logs --pred_file nq-dev-preds.jsonl
 ```
@@ -209,7 +209,7 @@ We support [DistributedDataParallel](https://pytorch.org/docs/stable/notes/ddp.h
 
 We have support for filtering hard negatives, following the procedure described in [Botha et al.](https://arxiv.org/abs/2011.02690). The goal is to balance the frequency an entity occurs as a hard negative relative to the frequency an entity occurs in the training dataset as a gold entity. Filtering can help reduce the proportion of hard negatives that are rare entities. To use filtering, we provide the `--filter_negatives` flag. We only recommend this frequency-based filtering procedure for *large* training datasets (e.g. BLINK or KILT). On small training datases, most entities may have very low or zero counts, leading to aggressive filtering.  
 
-## Retrieval datasets 
+## Datasets 
 
 ### Evaluation
 We provide evaluation files in the TABi data format for the [AmbER](https://github.com/anthonywchen/AmbER-Sets/) and [KILT](https://github.com/facebookresearch/KILT) benchmarks. For KILT, we include the 8 open-domain tasks: 
